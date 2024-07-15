@@ -1,12 +1,9 @@
-import mongoengine as me
+from mongoengine import Document, StringField, EmailField, BooleanField, connect
 
-class Author(me.Document):
-    fullname = me.StringField(required=True)
-    born_date = me.StringField()
-    born_location = me.StringField()
-    description = me.StringField()
+# Подключение к MongoDB
+connect(db='Danil', host='mongodb+srv://danilliashetsky:fAIk5srVPzr5lFxb@cluster0.dceb9uj.mongodb.net/your_database_name?retryWrites=true&w=majority')
 
-class Quote(me.Document):
-    tags = me.ListField(me.StringField())
-    author = me.ReferenceField(Author, reverse_delete_rule=me.CASCADE)
-    quote = me.StringField(required=True)
+class Contact(Document):
+    fullname = StringField(required=True)
+    email = EmailField(required=True)
+    sent = BooleanField(default=False)
